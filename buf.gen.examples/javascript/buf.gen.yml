@@ -1,0 +1,10 @@
+# buf generate --template buf.gen.examples/javascript/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/bufbuild/es:v2.15.0
+    out: gen/js
+    opt:
+      - target=js
+      - import_extension=js

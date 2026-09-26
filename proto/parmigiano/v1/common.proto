@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package parmigiano.v1;
+
+enum ContentType {
+    CONTENT_TYPE_UNSPECIFIED = 0;
+    CONTENT_TYPE_TEXT = 1;
+    CONTENT_TYPE_IMAGE = 2;
+    reserved 3;
+    reserved "CONTENT_TYPE_MEDIA";
+    CONTENT_TYPE_VIDEO = 4;
+    CONTENT_TYPE_FILE = 5;
+    CONTENT_TYPE_VOICE = 6;
+}
+
+message FileInfo {
+    string name = 1;
+    string path = 2;
+    string hash = 3;
+}
+
+message DirInfo {
+    string path = 1;
+}
+
+message MainExecutable {
+    string name = 1;
+}
+
+message FileSet {
+    repeated FileInfo files = 1;
+    repeated DirInfo directories = 2;
+    MainExecutable main_executable = 3;
+}

@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package parmigiano.v1;
+
+import "google/protobuf/timestamp.proto";
+import "parmigiano/v1/common.proto";
+
+message ServerMessage {
+    reserved 9;
+    reserved "chat_key";
+
+    oneof payload {
+        PresenceEvent presence = 1;
+        TypingEvent typing = 2;
+        MessageCreated message_created = 3;
+        MessageRead message_read = 4;
+        MessageEdited message_edited = 5;
+        MessageDeleted message_deleted = 6;
+        MessagePinned message_pinned = 7;
+        UnreadCount unread_count = 8;
+        Disconnect disconnect = 10;
+
+        FileSet file_manifest = 11;
+        DownloadFileResult download_file = 12;
+        PublicKey public_key = 13;
+    }
+}
+
+message PresenceEvent {
+    uint64 user_id = 1;
+    bool online = 2;
+}
+
+message TypingEvent {
+    uint64 user_id = 1;
+    uint64 chat_id = 2;
+    bool is_typing = 3;
+}
+
+message MessageCreated {
+    uint64 temp_message_id = 1;
+    uint64 message_id = 2;
+    uint64 chat_id = 3;
+    uint64 sender_id = 4;
+    string content = 5;
+    ContentType content_type = 6;
+    reserved "delivered_at";
+    google.protobuf.Timestamp created_at = 7;
+    bool is_edited = 8;
+    bool is_pinned = 9;
+}
+
+message MessageRead {
+    uint64 chat_id = 1;
+    uint64 message_id = 2;
+    uint64 user_id = 3;
+    google.protobuf.Timestamp read_at = 4;
+}
+
+message MessageEdited {
+    uint64 message_id = 1;
+    uint64 chat_id = 2;
+    uint64 sender_id = 3;
+    string content = 4;
+    ContentType content_type = 5;
+    google.protobuf.Timestamp edited_at = 6;
+}
+
+message MessageDeleted {
+    enum Reason {
+        MESSAGE_DELETED_REASON_UNSPECIFIED = 0;
+        MESSAGE_DELETED_REASON_USER = 1;
+        MESSAGE_DELETED_REASON_MODERATION = 2;
+    }
+
+    uint64 chat_id = 1;
+    uint64 message_id = 2;
+    uint64 user_id = 3;
+    google.protobuf.Timestamp deleted_at = 4;
+    Reason reason = 5;
+}
+
+message MessagePinned {
+    uint64 user_id = 1;
+    uint64 chat_id = 2;
+    uint64 message_id = 3;
+    bool pinned = 4;
+}
+
+message UnreadCount {
+    uint64 chat_id = 1;
+    uint32 count = 2;
+}
+
+message PublicKey {
+    uint64 user_id = 1;
+    bytes public_key = 2;
+}
+
+message Disconnect {
+    enum Reason {
+        DISCONNECT_REASON_UNSPECIFIED = 0;
+        DISCONNECT_REASON_WARN = 1;
+        DISCONNECT_REASON_ERROR = 2;
+        DISCONNECT_REASON_TEMP_BAN = 3;
+        DISCONNECT_REASON_INACTIVE = 4;
+        DISCONNECT_REASON_INSUFFICIENT_INFO = 5;
+    }
+
+    Reason reason = 1;
+    string description = 2;
+    int32 code = 3;
+    google.protobuf.Timestamp blocked_until = 4;
+    bool permanent = 5;
+}
+
+message DownloadFileResult {
+    FileInfo file = 1;
+}

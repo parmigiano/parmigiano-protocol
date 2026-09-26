@@ -1,0 +1,31 @@
+name: Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  push:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  buf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: bufbuild/buf-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          lint: true
+          # buf format rewrites these files to a 2-space indent.
+          format: false
+          breaking: ${{ (github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'buf skip breaking')) || github.event_name == 'push' }}
+          push: false
+          archive: false

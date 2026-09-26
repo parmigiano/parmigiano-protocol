@@ -1,0 +1,15 @@
+# buf generate --template buf.gen.examples/go/buf.gen.yml
+version: v2
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/parmigiano/parmigiano-protocol/gen/go
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/protocolbuffers/go:v1.36.12
+    out: gen/go
+    opt:
+      - paths=source_relative
+      - default_api_level=API_HYBRID

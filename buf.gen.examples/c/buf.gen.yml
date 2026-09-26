@@ -1,0 +1,7 @@
+# buf generate --template buf.gen.examples/c/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/community/protobuf-c:v1.5.2
+    out: gen/c

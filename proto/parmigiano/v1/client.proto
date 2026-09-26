@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package parmigiano.v1;
+
+import "parmigiano/v1/common.proto";
+
+message ClientMessage {
+    uint64 user_id = 1;
+
+    reserved 3, 11;
+    reserved "key_request", "delivery_ack";
+
+    oneof payload {
+        Connect connect = 2;
+        PresenceRequest presence = 4;
+
+        SendMessageRequest send_message = 5;
+        ReadMessageRequest read_message = 6;
+        EditMessageRequest edit_message = 7;
+        PinMessageRequest pin_message = 8;
+        DeleteMessageRequest delete_message = 9;
+        TypingRequest typing = 10;
+        UnreadCountRequest unread_count = 12;
+
+        FileSet file_hashes = 13;
+        DownloadFileRequest download_file = 14;
+        PublicKeyRequest public_key_request = 15;
+    }
+}
+
+message Connect {
+    bytes public_key = 1;
+}
+
+message PublicKeyRequest {
+    uint64 user_id = 1;
+}
+
+message PresenceRequest {
+    bool online = 1;
+}
+
+message SendMessageRequest {
+    uint64 chat_id = 1;
+    string content = 2;
+    ContentType content_type = 3;
+    uint64 temp_message_id = 4;
+}
+
+message ReadMessageRequest {
+    uint64 chat_id = 1;
+    uint64 message_id = 2;
+}
+
+message EditMessageRequest {
+    uint64 chat_id = 1;
+    uint64 message_id = 2;
+    string content = 3;
+    ContentType content_type = 4;
+}
+
+message PinMessageRequest {
+    uint64 chat_id = 1;
+    uint64 message_id = 2;
+    bool pinned = 3;
+}
+
+message DeleteMessageRequest {
+    uint64 chat_id = 1;
+    uint64 message_id = 2;
+}
+
+message TypingRequest {
+    uint64 chat_id = 1;
+    bool is_typing = 2;
+}
+
+message UnreadCountRequest {
+    uint64 chat_id = 1;
+}
+
+message DownloadFileRequest {
+    string path = 1;
+}

@@ -1,0 +1,7 @@
+# buf generate --template buf.gen.examples/cpp/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/protocolbuffers/cpp:v36.2
+    out: gen/cpp
