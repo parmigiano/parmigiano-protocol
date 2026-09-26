@@ -67,17 +67,17 @@ message MessageEdited {
 }
 
 message MessageDeleted {
-    enum Reason {
-        MESSAGE_DELETED_REASON_UNSPECIFIED = 0;
-        MESSAGE_DELETED_REASON_USER = 1;
-        MESSAGE_DELETED_REASON_MODERATION = 2;
+    enum DeleteReason {
+        DELETE_REASON_UNSPECIFIED = 0;
+        DELETE_REASON_USER = 1;
+        DELETE_REASON_MODERATION = 2;
     }
 
     uint64 chat_id = 1;
     uint64 message_id = 2;
     uint64 user_id = 3;
     google.protobuf.Timestamp deleted_at = 4;
-    Reason reason = 5;
+    DeleteReason reason = 5;
 }
 
 message MessagePinned {
@@ -98,7 +98,7 @@ message PublicKey {
 }
 
 message Disconnect {
-    enum Reason {
+    enum DisconnectReason {
         DISCONNECT_REASON_UNSPECIFIED = 0;
         DISCONNECT_REASON_WARN = 1;
         DISCONNECT_REASON_ERROR = 2;
@@ -107,7 +107,7 @@ message Disconnect {
         DISCONNECT_REASON_INSUFFICIENT_INFO = 5;
     }
 
-    Reason reason = 1;
+    DisconnectReason reason = 1;
     string description = 2;
     int32 code = 3;
     google.protobuf.Timestamp blocked_until = 4;

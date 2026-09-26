@@ -175,15 +175,15 @@ A message was deleted.
 | `message_id` | `uint64` | Deleted message. |
 | `user_id` | `uint64` | Who deleted it. For moderation this is the acting user, or empty when there is none. |
 | `deleted_at` | `Timestamp` | Time the deletion was stored. |
-| `reason` | `MessageDeleted.Reason` | Why it was deleted. |
+| `reason` | `MessageDeleted.DeleteReason` | Why it was deleted. |
 
-`MessageDeleted.Reason`:
+`MessageDeleted.DeleteReason`:
 
 | Value | Meaning |
 | --- | --- |
-| `MESSAGE_DELETED_REASON_UNSPECIFIED` | Zero value. Reason was not set. |
-| `MESSAGE_DELETED_REASON_USER` | Deleted by a user. |
-| `MESSAGE_DELETED_REASON_MODERATION` | Removed by moderation. |
+| `DELETE_REASON_UNSPECIFIED` | Zero value. Reason was not set. |
+| `DELETE_REASON_USER` | Deleted by a user. |
+| `DELETE_REASON_MODERATION` | Removed by moderation. |
 
 ### MessagePinned
 
@@ -203,13 +203,13 @@ The server is closing the connection.
 
 | Field | Type | Meaning |
 | --- | --- | --- |
-| `reason` | `Disconnect.Reason` | Why the connection is closed. |
+| `reason` | `Disconnect.DisconnectReason` | Why the connection is closed. |
 | `description` | `string` | Human-readable detail. |
 | `code` | `int32` | Application-specific code. |
 | `blocked_until` | `Timestamp` | End of a temporary account ban. Unset when the ban is not temporary. |
 | `permanent` | `bool` | The account ban does not expire. |
 
-`Disconnect.Reason`:
+`Disconnect.DisconnectReason`:
 
 | Value | Meaning |
 | --- | --- |
@@ -403,15 +403,15 @@ Answer to `DownloadFileRequest`. `file` is the `FileInfo` of the requested file.
 | `message_id` | `uint64` | Удалённое сообщение. |
 | `user_id` | `uint64` | Кто удалил. Для модерации это действующий пользователь, либо пусто, если его нет. |
 | `deleted_at` | `Timestamp` | Время записи удаления. |
-| `reason` | `MessageDeleted.Reason` | Почему сообщение удалено. |
+| `reason` | `MessageDeleted.DeleteReason` | Почему сообщение удалено. |
 
-`MessageDeleted.Reason`:
+`MessageDeleted.DeleteReason`:
 
 | Значение | Смысл |
 | --- | --- |
-| `MESSAGE_DELETED_REASON_UNSPECIFIED` | Нулевое значение. Причина не задана. |
-| `MESSAGE_DELETED_REASON_USER` | Удалил пользователь. |
-| `MESSAGE_DELETED_REASON_MODERATION` | Снято модерацией. |
+| `DELETE_REASON_UNSPECIFIED` | Нулевое значение. Причина не задана. |
+| `DELETE_REASON_USER` | Удалил пользователь. |
+| `DELETE_REASON_MODERATION` | Снято модерацией. |
 
 ### MessagePinned
 
@@ -431,13 +431,13 @@ Answer to `DownloadFileRequest`. `file` is the `FileInfo` of the requested file.
 
 | Поле | Тип | Смысл |
 | --- | --- | --- |
-| `reason` | `Disconnect.Reason` | Почему соединение закрывается. |
+| `reason` | `Disconnect.DisconnectReason` | Почему соединение закрывается. |
 | `description` | `string` | Пояснение для человека. |
 | `code` | `int32` | Код приложения. |
 | `blocked_until` | `Timestamp` | Конец временной блокировки аккаунта. Не задано, если блокировка не временная. |
 | `permanent` | `bool` | Блокировка аккаунта без срока. |
 
-`Disconnect.Reason`:
+`Disconnect.DisconnectReason`:
 
 | Значение | Смысл |
 | --- | --- |
