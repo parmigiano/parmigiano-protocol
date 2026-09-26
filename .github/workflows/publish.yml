@@ -6,11 +6,6 @@ on:
       - main
     tags:
       - "v*.*.*"
-    paths:
-      - "**.proto"
-      - "**/buf.yaml"
-      - "**/buf.lock"
-      - "**/LICENSE"
 
 permissions:
   contents: read
