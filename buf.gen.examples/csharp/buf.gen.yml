@@ -1,0 +1,9 @@
+# buf generate --template buf.gen.examples/csharp/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/protocolbuffers/csharp:v36.2
+    out: gen/csharp
+    opt:
+      - base_namespace=

@@ -1,0 +1,16 @@
+# buf generate --template buf.gen.examples/kotlin/buf.gen.yml
+version: v2
+managed:
+  enabled: true
+  override:
+    - file_option: java_package_prefix
+      value: dev
+    - file_option: java_multiple_files
+      value: true
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/protocolbuffers/java:v36.2
+    out: gen/kotlin
+  - remote: buf.build/protocolbuffers/kotlin:v36.2
+    out: gen/kotlin

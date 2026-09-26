@@ -1,0 +1,10 @@
+# buf generate --template buf.gen.examples/swift/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/apple/swift:v1.38.1
+    out: gen/swift
+    opt:
+      - Visibility=Public
+      - FileNaming=PathToUnderscores

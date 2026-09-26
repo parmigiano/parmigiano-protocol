@@ -1,0 +1,11 @@
+# buf generate --template buf.gen.examples/rust/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/community/neoeinstein-prost:v0.5.0
+    out: gen/rust
+    opt:
+      - file_descriptor_set
+      - bytes=.
+      - flat_output_dir

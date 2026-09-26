@@ -1,0 +1,9 @@
+# buf generate --template buf.gen.examples/python/buf.gen.yml
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/protocolbuffers/python:v36.2
+    out: gen/python
+  - remote: buf.build/protocolbuffers/pyi:v36.2
+    out: gen/python
