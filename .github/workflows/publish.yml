@@ -11,7 +11,6 @@ on:
       - "**/buf.yaml"
       - "**/buf.lock"
       - "**/LICENSE"
-  delete:
 
 permissions:
   contents: read
@@ -21,15 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: bufbuild/buf-action@v1
         with:
           token: ${{ secrets.BUF_TOKEN }}
-          lint: ${{ github.event_name == 'push' }}
+          lint: false
           format: false
-          breaking: ${{ github.event_name == 'push' }}
-          push: ${{ github.event_name == 'push' }}
-          archive: ${{ github.event_name == 'delete' }}
+          breaking: false
+          push: true
+          archive: false
           pr_comment: false
           push_create_visibility: public

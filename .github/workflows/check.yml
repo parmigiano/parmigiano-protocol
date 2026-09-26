@@ -2,8 +2,9 @@ name: Check
 
 on:
   pull_request:
+    branches:
+      - main
     types: [opened, synchronize, reopened, labeled, unlabeled]
-  push:
 
 permissions:
   contents: read
@@ -26,6 +27,6 @@ jobs:
           lint: true
           # buf format rewrites these files to a 2-space indent.
           format: false
-          breaking: ${{ (github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'buf skip breaking')) || github.event_name == 'push' }}
+          breaking: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'buf skip breaking') }}
           push: false
           archive: false
